@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.css';
-// import CompoundInterestCalendar from '../components/CompoundInterestCalendar';
 import CompoundInterestCalculator from '../components/CompoundInterestCalendar';
 
 function InterestCalculatorPage() {
