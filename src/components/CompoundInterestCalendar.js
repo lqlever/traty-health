@@ -5,7 +5,6 @@ import { Paper } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { StoreProvider, DirectDepositForm } from "./DirectDepositForm";
 
 const CalculateButton = styled(Button)({
   color: "#FFFFFF",
@@ -18,9 +17,6 @@ const CalendarPaper = styled(Paper)({
   square: false,
   width: 320,
 });
-
-console.log(StoreProvider);
-console.log(DirectDepositForm);
 
 function CompoundInterestCalendar() {
   return (
