@@ -1,39 +1,37 @@
 import React from 'react';
-import { Button, Stack } from '@mui/material';
-import './styles.css';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
 
 function WelcomePage() {
-    return (
-        <div className="welcome-frame">
-            <div className="welcome-div">
-                <div className="welcome-navbar">
-                    <div className="text-wrapper">Sign In</div>
-                    <div className="text-wrapper-2">En Español</div>
-                    <div className="text-wrapper-3">Locations</div>
-                    <div className="text-wrapper-4">Contact Us</div>
-                    <div className="text-wrapper-5">Help</div>
-                </div>
-                <div className="overlap-group">
-                    <div className="text-wrapper-6">Personal</div>
-                    <div className="text-wrapper-7">Small Business</div>
-                    <div className="text-wrapper-8">Wealth Management</div>
-                    <div className="business">Business &amp; Institutions</div>
-                    <div className="text-wrapper-9">About Us</div>
-                </div>
-                <div className='overlap'>
-                  <Stack spacing={2}>
-                    <Button 
-                      style={{ backgroundColor: "#004990"}}
-                      href="/deposit"
-                      variant="contained">Learn More
-                    </Button>
-                  </Stack>
-                </div>
-                <p className="p">Welcome to Bank of Trayt</p>
-                <p className="text-wrapper-11">Initiate a new Direct Deposit to earn 5% for 36 Months!</p>
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <Box>
+        <Grid 
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+        >
+          <Grid item xs={12}>
+            <Typography variant="h3" gutterBottom mt={12} color="#004990">
+              Welcome to the Bank of Trayt
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h4" mt={12} mb={8} color="#004990">
+              Initiate a new Direct Deposit to earn 5% for 36 Months!
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" href="/direct-deposit">Learn More</Button>
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
+  );
 };
 
 export default WelcomePage;
