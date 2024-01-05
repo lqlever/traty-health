@@ -1,31 +1,32 @@
-import React from 'react';
-import './styles.css';
-import DirectDepositForm from '../components/DirectDepositForm';
+import React from "react";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { DirectDepositForm } from "../components/DirectDepositForm";
 
 function DirectDepositPage() {
-    return (
-        <div className="welcome-frame">
-            <div className="welcome-div">
-                <div className="welcome-navbar">
-                    <div className="text-wrapper">Sign In</div>
-                    <div className="text-wrapper-2">En Español</div>
-                    <div className="text-wrapper-3">Locations</div>
-                    <div className="text-wrapper-4">Contact Us</div>
-                    <div className="text-wrapper-5">Help</div>
-                </div>
-                <div className="overlap-group">
-                    <div className="text-wrapper-6">Personal</div>
-                    <div className="text-wrapper-7">Small Business</div>
-                    <div className="text-wrapper-8">Wealth Management</div>
-                    <div className="business">Business &amp; Institutions</div>
-                    <div className="text-wrapper-9">About Us</div>
-                </div>
-            </div>
-            <div className='overlap'>
-              <DirectDepositForm />     
-            </div>
-        </div>
-    );
-};
+  return (
+    <div>
+      <Box>
+        <Grid
+          container
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+        >
+          <Grid item xs={12}>
+            <Typography variant="h5" mt={18} mb={4} color="#004990">
+              New Direct Deposit Enrollment
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <DirectDepositForm />
+          </Grid>
+        </Grid>
+      </Box>
+    </div>
+  );
+}
 
 export default DirectDepositPage;

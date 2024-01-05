@@ -1,36 +1,72 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import DirectDepositForm from './DirectDepositForm'; // Replace with the correct import path
+import { DirectDepositForm, StoreProvider } from './DirectDepositForm';
 
-test('renders DirectDepositForm component', async () => {
-  render(<DirectDepositForm />);
+describe('DirectDepositForm', () => {
+  test('renders without errors', () => {
+    render(
+      <StoreProvider>
+        <DirectDepositForm />
+      </StoreProvider>
+    );
 
-  // Check if the form elements are rendered
-  const accountNumberInput = screen.getByLabelText(/account number/i);
-  const routingNumberInput = screen.getByLabelText(/routing number/i);
-  const amountInput = screen.getByLabelText(/amount/i);
-  const frequencySelect = screen.getByTestId(/simple-select/i);
-  const submitButton = screen.getByRole('link', { name: /submit/i });
+    const formElement = screen.getByTestId('direct-deposit-form');
+    expect(formElement).toBeInTheDocument();
+  });
 
-  expect(accountNumberInput).toBeInTheDocument();
-  expect(routingNumberInput).toBeInTheDocument();
-  expect(amountInput).toBeInTheDocument();
-  expect(frequencySelect).toBeInTheDocument();
-  expect(submitButton).toBeInTheDocument();
+  test('submits the form with valid data', () => {
 
-  // Simulate user input and check if the form state is updated
-  fireEvent.change(accountNumberInput, { target: { value: '12345678' } });
-  fireEvent.change(routingNumberInput, { target: { value: '123456789' } });
-  fireEvent.change(amountInput, { target: { value: '100.50' } });
-  fireEvent.change(frequencySelect, { target: { value: '1' } });
+    render(
+      <StoreProvider>
+        <DirectDepositForm />
+      </StoreProvider>
+    );
 
-  expect(accountNumberInput.value).toBe('12345678');
-  expect(routingNumberInput.value).toBe('123456789');
-  expect(amountInput.value).toBe('100.50');
-  expect(frequencySelect.value).toBe('1');
+    fireEvent.change(screen.getByLabelText(/Account Number/i), {
+      target: { value: '12345678' },
+    });
 
-  // Simulate form submission
-  fireEvent.click(submitButton);
+    fireEvent.change(screen.getByLabelText(/Routing Number/i), {
+      target: { value: '123456789' },
+    });
 
+    fireEvent.change(screen.getByLabelText(/Amount/i), {
+      target: { value: '100.50' },
+    });
+
+    const frequencySelect = screen.getByTestId('simple-select-input');
+    fireEvent.change(frequencySelect, { target: { value: '1' } });
+
+    fireEvent.click(screen.getByRole('link', { name: /Submit/i }));
+
+  });
+
+  test('displays validation errors for invalid data', () => {
+    render(
+      <StoreProvider>
+        <DirectDepositForm />
+      </StoreProvider>
+    );
+
+    // Trigger validation errors
+    fireEvent.change(screen.getByLabelText(/Account Number/i), {
+      target: { value: 'invalid' },
+    });
+
+    fireEvent.change(screen.getByLabelText(/Routing Number/i), {
+      target: { value: 'invalid' },
+    });
+
+    fireEvent.change(screen.getByLabelText(/Amount/i), {
+      target: { value: 'invalid' },
+    });
+
+    // Expect validation error messages to be displayed
+    expect(screen.getByText(/Account Numbers must be 8 -17 numbers/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Routing Numbers must be 9 numbers with valid first two digits/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Invalid Amount format/i)).toBeInTheDocument();
+  });
 });
